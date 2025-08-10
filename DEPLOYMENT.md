@@ -49,75 +49,70 @@ git push -u origin main
 
 **Result**: Your frontend will be live at `https://your-app-name.vercel.app`
 
-### Backend Deployment - Railway (Free Tier - No Card Required Initially)
+### Backend Deployment - Render (Free Tier - Best Long-term Option)
 
-1. **Sign up at [Railway](https://railway.app)**
+1. **Sign up at [Render](https://render.com)**
    - Use your GitHub account
-   - **Free $5 credit monthly (enough for small apps)**
-   - No credit card required for signup
+   - **Free tier: 750 hours/month (enough for full uptime)**
+   - **Completely free for 1+ years, just requires card verification**
+   - No charges unless you upgrade manually
 
 2. **Deploy Backend**
-   - Click "Deploy from GitHub repo"
+   - Click "New Web Service"
    - Connect your GitHub repository
-   - Select the root directory (contains server code)
-   - Railway auto-detects Node.js
+   - Root directory: `./` (contains server code)
+   - Build command: `npm install`
+   - Start command: `npm start`
+   - Render auto-detects Node.js
 
 3. **Environment Variables**
    ```
    NODE_ENV=production
-   PORT=$PORT
+   PORT=10000
    MONGODB_URI=your_mongodb_atlas_connection_string
    CLIENT_URL=https://your-vercel-app.vercel.app
    HUGGING_FACE_API_KEY=your_key_here (optional)
    GEMINI_API_KEY=your_key_here (optional)
    ```
 
-**Result**: Your backend will be live at `https://your-app-name.up.railway.app`
+**Result**: Your backend will be live at `https://your-app-name.onrender.com`
 
-### Alternative Backend Options (All Safe & Working):
+### Alternative Backend Options (100% Free for 1+ Years)
 
-#### Option 1: Render (Free Tier - Most Reliable)
-1. **Sign up at [Render](https://render.com)**
-   - **Free tier: 750 hours/month (always-on apps)**
-   - More reliable than most alternatives
-   - Requires credit card for verification but free tier is generous
-
-2. **Deploy Steps:**
-   - Click "New Web Service"
-   - Connect GitHub repository
-   - Root directory: `./` (for backend)
-   - Build command: `npm install`
-   - Start command: `npm start`
-
-#### Option 2: Koyeb (Free Tier - No Card Required)
-1. **Sign up at [Koyeb](https://www.koyeb.com)**
-   - Free tier available
-   - No credit card required for signup
-   - 512MB RAM, 2.5GB storage
-
-2. **Deploy Steps:**
-   - Import from GitHub
-   - Select Node.js
-   - Configure environment variables
-
-#### Option 3: Netlify Functions (Serverless - Free)
-1. **Sign up at [Netlify](https://netlify.com)**
-   - Convert your backend to serverless functions
-   - Free tier: 125k requests/month
-   - No credit card required
-
-#### Option 4: Glitch (100% Free Forever)
+#### Option 1: Glitch (Best for No Card Required)
 1. **Sign up at [Glitch](https://glitch.com)**
+   - **100% Free Forever** - No expiration, no card needed
    - Import from GitHub
-   - Always free
-   - No credit card required
-   - App sleeps after 5 minutes of inactivity
+   - Always free, Google-backed
+   - **Limitation**: App sleeps after 5 minutes of inactivity
 
-#### Option 5: Back4App (Backend-as-a-Service)
-1. **Sign up at [Back4App](https://www.back4app.com)**
-   - Free tier: 25k requests/month
+#### Option 2: Vercel Serverless Functions (Most Reliable Free)
+1. **Use your existing Vercel account**
+   - Convert backend to serverless API routes
+   - **100% Free Forever** - 100GB bandwidth, 100GB-hrs
    - No credit card required
-   - Managed database included
+   - **Best option for long-term stability**
+
+#### Option 3: InfinityFree + 000webhost
+1. **Sign up at [000webhost](https://www.000webhost.com)**
+   - **Completely free hosting**
+   - No expiration date
+   - 1GB storage, 10GB bandwidth
+   - PHP/MySQL support (can host Node.js apps)
+
+#### Option 4: Netlify Functions (Serverless Alternative)
+1. **Sign up at [Netlify](https://netlify.com)**
+   - Convert backend to serverless functions  
+   - **Free tier**: 125k requests/month
+   - No credit card required
+   - **Perfect for API-only backends**
+
+#### Option 5: GitHub Codespaces (Development Environment as Backend)
+1. **Use GitHub Codespaces**
+   - 60 hours/month free
+   - Keep your app running in codespace
+   - Access via forwarded ports
+   - **Creative workaround for free hosting**
 
 4. **Database Setup - MongoDB Atlas (Free 512MB)**
    - Sign up at [MongoDB Atlas](https://www.mongodb.com/atlas)
@@ -140,22 +135,23 @@ After deploying backend, update your frontend to use the production API:
 2. **Test both deployments**
 3. **Verify all features work**
 
-## 💡 Free Services Summary (No Credit Card Required)
+## 💡 Free Services Summary (Guaranteed Free for 1+ Years)
 
 - **Vercel**: Frontend hosting (Free forever, no card needed)
-- **Railway**: Backend hosting (Free $5 credit monthly, no card for signup)
-- **Render**: Backend hosting (Free 750hrs/month, card for verification only)
-- **Koyeb**: Backend hosting (Free tier, no card needed)
-- **Glitch**: Backend hosting (Free forever, no card needed)
-- **MongoDB Atlas**: Database (Free 512MB, no card needed)
-- **GitHub**: Code repository (Free, no card needed)
+- **Render**: Backend hosting (Free 750hrs/month, card verification only - never charged)
+- **Glitch**: Backend hosting (Free forever, no card needed, sleeps after 5min)
+- **Vercel Serverless**: Backend as API routes (Free forever, no card needed)
+- **Netlify Functions**: Serverless backend (Free 125k requests/month, no card)
+- **MongoDB Atlas**: Database (Free 512MB forever, no card needed)
+- **GitHub**: Code repository (Free forever, no card needed)
 
 ## 🔧 Maintenance
 
 - **Vercel**: Automatic deployments on git push
-- **Railway/Render**: Automatic deployments on git push  
-- **MongoDB Atlas**: Monitor usage in dashboard
-- **Domain**: Use free `.vercel.app` and deployment platform domains
+- **Render**: Automatic deployments on git push (free 750hrs/month)
+- **Glitch**: Auto-import from GitHub, always free
+- **MongoDB Atlas**: Monitor usage in dashboard (512MB free forever)
+- **Domain**: Use free `.vercel.app`, `.onrender.com`, `.glitch.me` domains
 
 ## 📝 Post-Deployment Checklist
 
