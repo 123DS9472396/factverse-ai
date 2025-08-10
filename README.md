@@ -62,8 +62,8 @@ The application will be available at:
 1. Run `.\SETUP-COMPLETE.bat` to initialize Git (PowerShell)
 2. Create repository at https://github.com/123DS9472396
 3. Follow instructions in `DEPLOYMENT.md`
-4. Deploy Frontend to Vercel (100% Free - No Card Required)
-5. Deploy Backend to Cyclic (100% Free - No Card Required)
+4. Deploy Frontend to Vercel 
+5. Deploy Backend to Cyclic 
 
 ## 🛠️ Tech Stack
 
