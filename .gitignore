@@ -56,3 +56,10 @@ Thumbs.db
 # Cache
 .cache/
 .parcel-cache/
+
+# Setup files (local use only, not for GitHub)
+SETUP-COMPLETE.bat
+SETUP-GIT.bat
+FREE-DEPLOYMENT.md
+INSTALL-GIT.md
+setup-github.bat

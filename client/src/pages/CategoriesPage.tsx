@@ -1,10 +1,4 @@
-import { useState } from '  const { data: response, isLoading } = useQuery({
-    queryKey: ['facts', 'categories', selectedCategory],
-    queryFn: () => factAPI.generateFactsBatch(selectedCategory, 'medium', 12),
-    enabled: selectedCategory !== 'all'
-  });
-
-  const facts = Array.isArray(response) ? response : response?.facts || [];';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Grid, List } from 'lucide-react';
 import FactCard from '../components/FactCard';
