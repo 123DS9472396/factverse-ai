@@ -66,14 +66,18 @@ git push -u origin main
    - Render auto-detects Node.js
 
 3. **Environment Variables**
-   ```
+   ```env
    NODE_ENV=production
-   PORT=10000
+   PORT=5000
    MONGODB_URI=your_mongodb_atlas_connection_string
    CLIENT_URL=https://your-vercel-app.vercel.app
-   HUGGING_FACE_API_KEY=your_key_here (optional)
-   GEMINI_API_KEY=your_key_here (optional)
+   HUGGING_FACE_API_KEY=your_key_here
+   GEMINI_API_KEY=your_key_here
+   JWT_SECRET=your_jwt_secret_key
+   JWT_EXPIRES_IN=7d
    ```
+
+   **Note**: Render automatically provides PORT environment variable, but your app defaults to 5000.
 
 **Result**: Your backend will be live at `https://your-app-name.onrender.com`
 
@@ -114,7 +118,33 @@ git push -u origin main
    - Access via forwarded ports
    - **Creative workaround for free hosting**
 
-4. **Database Setup - MongoDB Atlas (Free 512MB)**
+## 🎯 **Platform-Specific Environment Variables:**
+
+### For Render:
+```env
+NODE_ENV=production
+# PORT is automatically provided by Render (usually 10000)
+# Your app uses: process.env.PORT || 5000
+MONGODB_URI=your_mongodb_atlas_connection_string
+CLIENT_URL=https://your-vercel-app.vercel.app
+```
+
+### For Glitch:
+```env
+NODE_ENV=production
+PORT=3000
+# Glitch uses PORT=3000 by default
+MONGODB_URI=your_mongodb_atlas_connection_string
+CLIENT_URL=https://your-vercel-app.vercel.app
+```
+
+### For all platforms, also add:
+```env
+HUGGING_FACE_API_KEY=your_key_here
+GEMINI_API_KEY=your_key_here
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=7d
+```
    - Sign up at [MongoDB Atlas](https://www.mongodb.com/atlas)
    - Create free cluster
    - Get connection string
