@@ -1,0 +1,244 @@
+{
+  "science": [
+    {
+      "text": "A group of flamingos is called a 'flamboyance'. These pink birds get their color from eating shrimp and algae rich in carotenoids.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Honey never spoils. Archaeologists have found edible honey in Egyptian tombs that is over 3,000 years old.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Quantum entanglement allows particles to instantaneously affect each other regardless of distance. Einstein called this phenomenon 'spooky action at a distance'.",
+      "difficulty": "hard"
+    },
+    {
+      "text": "The human brain contains approximately 86 billion neurons, each connected to thousands of others, creating over 100 trillion neural connections.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Water can exist in three states simultaneously at its triple point: 0.01°C and 611.657 pascals of pressure.",
+      "difficulty": "hard"
+    }
+  ],
+  "history": [
+    {
+      "text": "The Great Wall of China is not visible from space with the naked eye, despite popular belief. This myth has been debunked by astronauts.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Cleopatra lived closer in time to the Moon landing (1969) than to the construction of the Great Pyramid of Giza (2580 BC).",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The shortest war in history lasted only 38-45 minutes. It was between Britain and Zanzibar in 1896.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Napoleon Bonaparte was actually average height for his time at 5'7\". The myth of his short stature came from British propaganda.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The Library of Alexandria gradually declined over several centuries rather than being destroyed in a single catastrophic event.",
+      "difficulty": "hard"
+    }
+  ],
+  "nature": [
+    {
+      "text": "Trees can communicate with each other through underground fungal networks called mycorrhizae, sharing nutrients and warning signals.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "A single cloud can weigh more than a million pounds, but it floats because the water droplets are dispersed over a huge area.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Bananas are berries, but strawberries aren't. Botanically, berries must have seeds inside their flesh.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Some plants can count. The Venus flytrap counts the number of times trigger hairs are touched before closing its trap.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The Amazon rainforest produces about 20% of the world's oxygen and absorbs massive amounts of carbon dioxide daily.",
+      "difficulty": "medium"
+    }
+  ],
+  "space": [
+    {
+      "text": "One day on Venus (243 Earth days) is longer than its year (225 Earth days). Venus rotates very slowly on its axis.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Jupiter's Great Red Spot is a storm that has been raging for at least 400 years and is larger than Earth.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Neutron stars are so dense that a teaspoon of neutron star material would weigh about 6 billion tons on Earth.",
+      "difficulty": "hard"
+    },
+    {
+      "text": "There are more possible games of chess than atoms in the observable universe (approximately 10^120 vs 10^80).",
+      "difficulty": "hard"
+    },
+    {
+      "text": "Saturn would float in water if there was an ocean large enough, as it's less dense than water.",
+      "difficulty": "easy"
+    }
+  ],
+  "technology": [
+    {
+      "text": "The first computer bug was an actual bug. Grace Hopper found a moth trapped in a Harvard Mark II computer in 1947.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "WiFi technology was invented by accident while trying to detect mini black holes. The failed experiment led to wireless internet.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The Internet was originally called ARPANET and was designed to survive nuclear attacks by having no central point of failure.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Moore's Law predicts that computer processing power doubles every two years, and it has held true for over 50 years.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Quantum computers use qubits that can exist in multiple states simultaneously, potentially solving certain problems exponentially faster.",
+      "difficulty": "hard"
+    }
+  ],
+  "animals": [
+    {
+      "text": "Octopuses have three hearts and blue blood. Two hearts pump blood to their gills, while the third pumps to the rest of the body.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Dolphins have names for each other. They develop unique whistle signatures that function like names in human society.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "A shrimp's heart is located in its head, and they have transparent blood due to a different oxygen-carrying protein.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Elephants can 'hear' with their feet. They detect seismic vibrations through specialized cells in their feet and trunk.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Tardigrades can survive in space. These microscopic animals can withstand extreme radiation, temperature, and the vacuum of space.",
+      "difficulty": "hard"
+    }
+  ],
+  "geography": [
+    {
+      "text": "Australia is wider than the Moon. The Moon's diameter is 3,400 km, while Australia measures about 4,000 km from east to west.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Mount Everest grows about 4 millimeters taller each year due to tectonic plate movement pushing the Himalayas upward.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The Pacific Ocean is larger than all land masses combined. It covers about 46% of Earth's water surface.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Antarctica is technically a desert. It receives less than 200mm of precipitation annually, making it the world's largest desert.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The deepest point on Earth, the Mariana Trench, could fit Mount Everest with 2 km to spare above its peak.",
+      "difficulty": "medium"
+    }
+  ],
+  "culture": [
+    {
+      "text": "The word 'quiz' was invented in 1780 by a Dublin theater manager who bet he could introduce a new word into the language within 24 hours.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "In Japan, it's considered rude to blow your nose in public, but it's perfectly acceptable to slurp your noodles loudly.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "The longest place name in the world has 85 letters: Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu, a hill in New Zealand.",
+      "difficulty": "hard"
+    },
+    {
+      "text": "Chocolate was once used as currency by the Aztecs. Cacao beans were so valuable they were often counterfeited.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "The tradition of wearing white wedding dresses started with Queen Victoria in 1840. Before then, brides wore their best dress in any color.",
+      "difficulty": "medium"
+    }
+  ],
+  "mathematics": [
+    {
+      "text": "The number π (pi) has been calculated to over 31 trillion decimal places, but we only need 39 digits to calculate the circumference of the observable universe to the accuracy of a hydrogen atom.",
+      "difficulty": "hard"
+    },
+    {
+      "text": "Zero was invented in India around the 5th century. Before this, there was no way to represent 'nothing' mathematically.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "A googol is a 1 followed by 100 zeros. A googolplex is 1 followed by a googol zeros - a number so large it can't be written out.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The Fibonacci sequence appears everywhere in nature: flower petals, pinecones, seashells, and even galaxy spirals follow this pattern.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "There are more possible arrangements of a deck of 52 cards than there are atoms on Earth. The number is approximately 8×10^67.",
+      "difficulty": "hard"
+    }
+  ],
+  "food": [
+    {
+      "text": "Carrots were originally purple. Orange carrots were developed by Dutch farmers in the 17th century to honor the House of Orange.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Chocolate chip cookies were invented by accident in 1938 when Ruth Wakefield ran out of baker's chocolate and used broken pieces of Nestlé chocolate.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Honey is the only food that never expires. Its low moisture content and acidic pH create an environment where bacteria cannot survive.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Tomatoes were once thought to be poisonous by Europeans because wealthy people got lead poisoning from eating them off pewter plates.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Vanilla is the second most expensive spice in the world after saffron. It takes 300-600 hand-pollinated vanilla flowers to produce just 1 kg of vanilla.",
+      "difficulty": "hard"
+    }
+  ],
+  "general": [
+    {
+      "text": "Your smartphone has more computing power than all of NASA had when they put humans on the moon in 1969.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "Humans share about 60% of their DNA with bananas and about 96% with chimpanzees, showing our connection to all life on Earth.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "The human eye can distinguish between approximately 10 million different colors, but some women may see up to 100 million colors due to a genetic variation.",
+      "difficulty": "medium"
+    },
+    {
+      "text": "Time moves slower at your feet than at your head due to gravitational time dilation. The difference is tiny but measurable with atomic clocks.",
+      "difficulty": "hard"
+    },
+    {
+      "text": "The plastic tips on shoelaces are called aglets. The word comes from the Old French 'aguillette' meaning needle.",
+      "difficulty": "easy"
+    }
+  ]
+}
