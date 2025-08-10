@@ -21,8 +21,11 @@ A modern fact discovery platform featuring glassmorphism design, intelligent con
 
 ## 📸 Screenshots
 
-![FactVerse App](https://via.placeholder.com/800x400/6366f1/ffffff?text=FactVerse+App+Screenshot)
 *Modern glassmorphism design with smooth animations*
+<img width="1911" height="812" alt="image" src="https://github.com/user-attachments/assets/7192a168-8eea-4488-8c36-67dc2f4d3f85" />
+<img width="1919" height="919" alt="image" src="https://github.com/user-attachments/assets/4e8d3f19-cfa7-459a-9b2c-940e358055af" />
+<img width="1918" height="926" alt="image" src="https://github.com/user-attachments/assets/550179b8-4be4-430a-8e52-f22b8f6ba904" />
+
 
 ## 🚀 How to Start Your Application
 
