@@ -35,7 +35,7 @@ A modern fact discovery platform featuring glassmorphism design, intelligent con
 
 ### Start the Server:
 ```bash
-cd fact-verse-ai_complete\server
+cd fact-verse-ai\server
 npm install
 npm run build
 npm run dev
@@ -43,7 +43,7 @@ npm run dev
 
 ### Start the Client:
 ```bash
-cd fact-verse-ai_complete\client
+cd fact-verse-ai\client
 npm install
 npm run dev
 ```
