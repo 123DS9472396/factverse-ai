@@ -11,18 +11,26 @@ interface FactCardProps {
     text: string;
     category: string;
     source?: string;
-    confidence: number;
-    timestamp: Date;
-    likes?: number;
     verified?: boolean;
+    likes?: number;
+    createdAt?: string;
+    metadata?: {
+      confidence?: number;
+      readingTime?: number;
+    };
   };
-  index: number;
+  index?: number;
+  showActions?: boolean;
+  className?: string;
 }
 
-export default function FactCard({ fact, index }: FactCardProps) {
+export default function FactCard({ fact, index = 0, showActions = true, className = '' }: FactCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isShared, setIsShared] = useState(false);
+
+  const confidence = fact.metadata?.confidence || 0.8;
+  const timestamp = fact.createdAt ? new Date(fact.createdAt) : new Date();
 
   const getConfidenceLevel = (confidence: number) => {
     if (confidence >= 0.9) return { level: 'Exceptional', color: 'text-emerald-400', icon: Award };
@@ -61,7 +69,7 @@ export default function FactCard({ fact, index }: FactCardProps) {
     }
   };
 
-  const confidenceInfo = getConfidenceLevel(fact.confidence);
+  const confidenceInfo = getConfidenceLevel(confidence);
   const ConfidenceIcon = confidenceInfo.icon;
 
   return (
@@ -86,7 +94,7 @@ export default function FactCard({ fact, index }: FactCardProps) {
             
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Clock className="w-4 h-4" />
-              <span>{fact.timestamp.toLocaleDateString()}</span>
+              <span>{timestamp.toLocaleDateString()}</span>
             </div>
           </div>
 
@@ -110,7 +118,7 @@ export default function FactCard({ fact, index }: FactCardProps) {
                     {confidenceInfo.level}
                   </span>
                   <span className={`text-sm ${confidenceInfo.color} opacity-80`}>
-                    ({Math.round(fact.confidence * 100)}%)
+                    ({Math.round(confidence * 100)}%)
                   </span>
                 </div>
                 {fact.verified && (

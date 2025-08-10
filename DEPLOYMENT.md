@@ -37,13 +37,15 @@ git push -u origin main
    - Click "New Project"
    - Import your GitHub repository
    - Framework: "Vite" (auto-detected)
-   - Root Directory: `client`
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
+   - **Root Directory**: `client` ✅ (NOT client/public or client/src)
+   - **Build Command**: `npm run build` (NOT npm run dev)
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install`
 
 3. **Environment Variables** (Optional)
    - Add any client-side environment variables if needed
+
+**Important**: Use `npm run build` for production deployment, not `npm run dev`
 
 **Result**: Your frontend will be live at `https://your-app-name.vercel.app`
 

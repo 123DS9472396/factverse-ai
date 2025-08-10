@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, Zap, Brain, Rocket } from 'lucide-react'
 import FactGenerator from '../components/facts/FactGenerator'
-import FactCard from '../components/facts/FactCard'
-import CategorySelector from '../components/facts/CategorySelector'
-import StatsCard from '../components/dashboard/StatsCard'
+import FactCard from '../components/FactCard'
+import CategorySelector from '../components/CategorySelector'
+import StatsCard from '../components/StatsCard'
 import { useApp } from '../context/AppContext'
 import { ANIMATION_VARIANTS } from '../utils/constants'
 
@@ -139,7 +139,6 @@ const Home: React.FC = () => {
         <CategorySelector 
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
-          showAll={true}
         />
       </motion.section>
 

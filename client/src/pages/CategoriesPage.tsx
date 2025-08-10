@@ -24,11 +24,14 @@ export default function CategoriesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  const { data: facts = [], isLoading } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ['facts', 'categories', selectedCategory],
     queryFn: () => factAPI.generateFactsBatch(selectedCategory, 'medium', 12),
     enabled: selectedCategory !== 'all'
   });
+
+  // Handle different response types from API
+  const facts = Array.isArray(response) ? response : response?.facts || [];
 
   const filteredCategories = CATEGORIES.filter(cat =>
     cat.name.toLowerCase().includes(searchTerm.toLowerCase())
