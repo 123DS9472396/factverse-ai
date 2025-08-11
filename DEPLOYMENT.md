@@ -222,23 +222,50 @@ CREATE POLICY "Allow public update access" ON facts FOR UPDATE USING (true);
 - Frontend deployed on Vercel
 - Code fixes pushed to GitHub
 
-### 🔧 **Fix Your Current Render Deployment:**
+## 🎯 **Current Status - What You Need to Do Right Now:**
 
-**Go to your Render service settings and update:**
+### ✅ **Already Completed:**
+- GitHub repository setup ✅
+- Frontend deployed on Vercel ✅  
+- Backend deployed on Render ✅
+- Code fixes pushed to GitHub ✅
+- Root route added to backend ✅
+- Frontend updated to use production backend URL ✅
 
-1. **Build Command**: Change from `npm run build:server` to `npm install`
-2. **Start Command**: Keep as `npm start`
-3. **Add Missing Environment Variable**: `MONGODB_URI` (you'll get this from MongoDB Atlas)
-4. **Click "Manual Deploy"** to redeploy with correct settings
+### ⚠️ **Important: Add Environment Variables to Render**
 
-### 📋 **Next Steps to Complete:**
+Your backend is deployed but needs environment variables. Go to your Render service:
 
-1. **Set up MongoDB Atlas** (10 minutes)
-2. **Add database URL to Render** (2 minutes)  
-3. **Update frontend API URL** (5 minutes)
-4. **Test everything** (5 minutes)
+1. **Visit**: https://dashboard.render.com/web/srv-d2cmqore5dus73b64lb0
+2. **Go to**: Environment tab
+3. **Add these variables** (get the real values from your local `server/.env` file):
 
-**Total time to complete: ~25 minutes**
+| Variable Name | Value |
+|---------------|--------|
+| `NODE_ENV` | `production` |
+| `CLIENT_URL` | `https://factverse-ai.vercel.app` |
+| `SUPABASE_URL` | `your_supabase_project_url_from_env` |
+| `SUPABASE_ANON_KEY` | `your_supabase_anon_key_from_env` |
+| `JWT_SECRET` | `your_jwt_secret_from_env` |
+| `JWT_EXPIRES_IN` | `7d` |
+| `HUGGING_FACE_API_KEY` | `your_hugging_face_key_from_env` |
+| `GEMINI_API_KEY` | `your_gemini_key_from_env` |
+
+**🔐 Security Note**: 
+- Get the actual values from your local `server/.env` file
+- **NEVER** put real API keys in documentation or GitHub
+- Copy-paste the real values directly into Render's environment variables
+
+4. **Click "Save Changes"**
+5. **Your service will automatically redeploy**
+
+### 📋 **After Adding Environment Variables:**
+
+1. **Wait 2-3 minutes** for Render to redeploy
+2. **Test backend**: Visit https://factverse-ai.onrender.com (should show welcome message)
+3. **Test frontend**: Visit https://factverse-ai.vercel.app (should work normally)
+
+**Total time to complete: ~5 minutes**
 
 ---
 
