@@ -1,6 +1,6 @@
 {
   "name": "factverse-ai-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "FactVerse AI Backend with Express, MongoDB, and AI Integration",
   "main": "dist/app.js",
   "scripts": {

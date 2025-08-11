@@ -101,49 +101,6 @@ router.get('/stats', async (req, res) => {
   }
 })
 
-// Get fact by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-
-    const fact = await FactModel.findById(id)
-    
-    if (!fact) {
-      return res.status(404).json({
-        error: 'Fact not found'
-      })
-    }
-
-    res.status(200).json(fact)
-  } catch (error) {
-    logger.error('Get fact error:', error)
-    res.status(500).json({
-      error: 'Failed to get fact',
-      message: error.message
-    })
-  }
-})
-
-// Like a fact
-router.post('/:id/like', async (req, res) => {
-  try {
-    const { id } = req.params
-
-    const fact = await FactModel.incrementLikes(id)
-
-    res.status(200).json({
-      message: 'Fact liked successfully',
-      likes: fact.likes
-    })
-  } catch (error) {
-    logger.error('Like fact error:', error)
-    res.status(500).json({
-      error: 'Failed to like fact',
-      message: error.message
-    })
-  }
-})
-
 // Generate multiple facts in batch
 router.post('/generate/batch', async (req, res) => {
   try {
@@ -197,6 +154,49 @@ router.post('/generate/batch', async (req, res) => {
     logger.error('Batch generation error:', error)
     res.status(500).json({
       error: 'Failed to generate batch facts',
+      message: error.message
+    })
+  }
+})
+
+// Get fact by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const fact = await FactModel.findById(id)
+    
+    if (!fact) {
+      return res.status(404).json({
+        error: 'Fact not found'
+      })
+    }
+
+    res.status(200).json(fact)
+  } catch (error) {
+    logger.error('Get fact error:', error)
+    res.status(500).json({
+      error: 'Failed to get fact',
+      message: error.message
+    })
+  }
+})
+
+// Like a fact
+router.post('/:id/like', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const fact = await FactModel.incrementLikes(id)
+
+    res.status(200).json({
+      message: 'Fact liked successfully',
+      likes: fact.likes
+    })
+  } catch (error) {
+    logger.error('Like fact error:', error)
+    res.status(500).json({
+      error: 'Failed to like fact',
       message: error.message
     })
   }
