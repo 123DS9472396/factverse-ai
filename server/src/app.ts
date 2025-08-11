@@ -78,6 +78,22 @@ app.use((req, res, next) => {
   next()
 })
 
+// Root route - Welcome message
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'FactVerse AI Server is running! 🚀',
+    version: '2.0.0',
+    status: 'online',
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      health: '/health',
+      facts: '/api/facts',
+      generate: '/api/facts/generate'
+    },
+    documentation: 'https://github.com/123DS9472396/factverse-ai'
+  })
+})
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
