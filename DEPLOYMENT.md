@@ -49,8 +49,12 @@ Click "Add Environment Variable" for each of these:
 |---------------|-------|
 | `NODE_ENV` | `production` |
 | `CLIENT_URL` | `https://factverse-ai.vercel.app` |
+| `SUPABASE_URL` | `your_supabase_project_url` |
+| `SUPABASE_ANON_KEY` | `your_supabase_anon_key` |
 | `JWT_SECRET` | `your_jwt_secret_from_env_file` |
 | `JWT_EXPIRES_IN` | `7d` |
+| `SUPABASE_URL` | `https://hdvyajfhudpzujjbpivj.supabase.co` |
+| `SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkdnlhamZodWRwenVqamJwaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA2NDgsImV4cCI6MjA3MDQ1NjY0OH0.tRwf3i9s9u3WtWgv-x9QiJYCFnIGKUb3ftSzz31dirk` |
 | `HUGGING_FACE_API_KEY` | `your_hugging_face_api_key` |
 | `GEMINI_API_KEY` | `your_gemini_api_key` |
 
@@ -65,49 +69,69 @@ Click "Add Environment Variable" for each of these:
 
 ---
 
-### Phase 4: Database Setup (MongoDB Atlas)
+### Phase 4: Database Setup (Supabase PostgreSQL)
 
-#### Step 1: Sign up for MongoDB Atlas
-1. Go to [mongodb.com/atlas](https://mongodb.com/atlas)
-2. Click "Try Free"
-3. Sign up with email or Google
+#### Step 1: Sign up for Supabase
+1. Go to [supabase.com](https://supabase.com)
+2. Click "Start your project"
+3. Sign in with your GitHub account
 
-#### Step 2: Create Database Cluster
-1. Choose "M0 Sandbox" (Free tier)
-2. Select cloud provider: "AWS"
-3. Region: Choose closest to your Render region
-4. Cluster name: `factverse-cluster`
-5. Click "Create"
+#### Step 2: Create New Project
+1. Click "New Project"
+2. **Project name**: `factverse-ai`
+3. **Database password**: Generate strong password (save it!)
+4. **Region**: West US (Oregon) - same as your Render backend
+5. Click "Create new project"
+6. Wait 30-60 seconds for setup
 
-#### Step 3: Configure Database Access
-1. **Database Access** → "Add New Database User"
-2. Authentication: "Password"
-3. Username: `factverse-admin`
-4. Password: Generate secure password (save it!)
-5. User Privileges: "Atlas admin"
-6. Click "Add User"
+#### Step 3: Get Project Details
+1. Go to **Settings** → **API**
+2. Copy your **Project URL** (looks like: `https://xxx.supabase.co`)
+3. Copy your **anon public** API key
 
-#### Step 4: Configure Network Access
-1. **Network Access** → "Add IP Address"
-2. Click "Allow Access from Anywhere" (0.0.0.0/0)
-3. Click "Confirm"
+#### Step 4: Create Database Table
+1. Go to **SQL Editor** in left sidebar
+2. Click **New Query**
+3. Paste and run this SQL:
 
-#### Step 5: Get Connection String
-1. Go to "Database" → Click "Connect" on your cluster
-2. Choose "Connect your application"
-3. Driver: "Node.js", Version: "4.1 or later"
-4. Copy the connection string (looks like):
-   ```
-   mongodb+srv://factverse-admin:<password>@factverse-cluster.xxx.mongodb.net/?retryWrites=true&w=majority
-   ```
-5. Replace `<password>` with your actual password
+```sql
+-- Create the facts table
+CREATE TABLE facts (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  text TEXT NOT NULL CHECK (char_length(text) >= 10 AND char_length(text) <= 1000),
+  category TEXT NOT NULL CHECK (category IN ('science', 'history', 'nature', 'space', 'technology', 'animals', 'geography', 'culture', 'mathematics', 'food', 'general')),
+  source TEXT DEFAULT 'FactVerse AI',
+  verified BOOLEAN DEFAULT false,
+  likes INTEGER DEFAULT 0 CHECK (likes >= 0),
+  metadata JSONB DEFAULT '{"confidence": 0.8, "reading_time": 30, "complexity": "medium", "ai_generated": true}',
+  reports JSONB DEFAULT '[]',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 
-#### Step 6: Add Database URL to Render
+-- Create indexes for better performance
+CREATE INDEX idx_facts_category ON facts(category);
+CREATE INDEX idx_facts_verified ON facts(verified);
+CREATE INDEX idx_facts_likes ON facts(likes DESC);
+CREATE INDEX idx_facts_created_at ON facts(created_at DESC);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE facts ENABLE ROW LEVEL SECURITY;
+
+-- Create policies to allow public read access
+CREATE POLICY "Allow public read access" ON facts FOR SELECT USING (true);
+CREATE POLICY "Allow public insert access" ON facts FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update access" ON facts FOR UPDATE USING (true);
+```
+
+#### Step 5: Add Database URL to Render
 1. Go back to your Render service
-2. Go to "Environment" tab
-3. Add new environment variable:
-   - **Name**: `MONGODB_URI`
-   - **Value**: Your MongoDB connection string
+2. Go to "Environment" tab  
+3. Add these environment variables:
+   - **Name**: `SUPABASE_URL`
+   - **Value**: Your Supabase Project URL
+   - **Name**: `SUPABASE_ANON_KEY` 
+   - **Value**: Your Supabase anon key
 4. Click "Save Changes"
 
 ---
