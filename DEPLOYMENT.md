@@ -53,10 +53,16 @@ Click "Add Environment Variable" for each of these:
 | `SUPABASE_ANON_KEY` | `your_supabase_anon_key` |
 | `JWT_SECRET` | `your_jwt_secret_from_env_file` |
 | `JWT_EXPIRES_IN` | `7d` |
-| `SUPABASE_URL` | `https://hdvyajfhudpzujjbpivj.supabase.co` |
-| `SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkdnlhamZodWRwenVqamJwaXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA2NDgsImV4cCI6MjA3MDQ1NjY0OH0.tRwf3i9s9u3WtWgv-x9QiJYCFnIGKUb3ftSzz31dirk` |
-| `HUGGING_FACE_API_KEY` | `your_hugging_face_api_key` |
-| `GEMINI_API_KEY` | `your_gemini_api_key` |
+| `HUGGING_FACE_API_KEY` | `your_hugging_face_api_key` *(optional)* |
+| `GEMINI_API_KEY` | `your_gemini_api_key` *(optional)* |
+
+**📝 Note**: Get the actual values from your `server/.env` file
+
+**🔐 Security Important**: 
+- **NEVER** put real API keys in documentation
+- Get your **Supabase URL** and **anon key** from your Supabase project dashboard
+- Use your own **JWT_SECRET** from your local `.env` file
+- AI API keys are optional for basic functionality
 
 **📝 Note**: Get the actual API key values from your `server/.env` file
 
