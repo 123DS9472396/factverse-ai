@@ -3,7 +3,6 @@ import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import { config } from 'dotenv'
-import mongoose from 'mongoose'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
@@ -13,6 +12,9 @@ import factRoutes from './routes/facts'
 // Middleware
 import { errorHandler } from './middleware/errorHandler'
 import { logger } from './utils/logger'
+
+// Supabase connection
+import { testConnection } from './config/supabase'
 
 // Load environment variables
 config()
@@ -122,10 +124,14 @@ app.use('*', (req, res) => {
 // Database connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/factverse-ai')
-    logger.info('MongoDB connected successfully')
+    const connected = await testConnection()
+    if (connected) {
+      logger.info('✅ Supabase connected successfully')
+    } else {
+      throw new Error('Supabase connection test failed')
+    }
   } catch (error) {
-    logger.error('MongoDB connection failed:', error)
+    logger.error('❌ Supabase connection failed:', error)
     process.exit(1)
   }
 }
@@ -135,7 +141,6 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM received, shutting down gracefully')
   server.close(() => {
     logger.info('Process terminated')
-    mongoose.connection.close()
     process.exit(0)
   })
 })
@@ -144,7 +149,6 @@ process.on('SIGINT', () => {
   logger.info('SIGINT received, shutting down gracefully')
   server.close(() => {
     logger.info('Process terminated')
-    mongoose.connection.close()
     process.exit(0)
   })
 })
