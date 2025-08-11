@@ -20,6 +20,10 @@ import { testConnection } from './config/supabase'
 config()
 
 const app = express()
+
+// Trust proxy for Render deployment
+app.set('trust proxy', true)
+
 const server = createServer(app)
 const io = new Server(server, {
   cors: {

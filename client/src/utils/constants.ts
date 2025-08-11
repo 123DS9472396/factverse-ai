@@ -1,6 +1,10 @@
 // API Configuration
+const isDevelopment = import.meta.env.DEV
+const productionAPIURL = 'https://factverse-ai.onrender.com/api'
+const developmentAPIURL = 'http://localhost:5000/api'
+
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_URL || 'https://factverse-ai.onrender.com/api',
+  BASE_URL: import.meta.env.VITE_API_URL || (isDevelopment ? developmentAPIURL : productionAPIURL),
   TIMEOUT: 10000,
 }
 
