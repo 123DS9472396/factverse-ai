@@ -92,7 +92,9 @@ const limiter = rateLimit({
     error: 'API limit exceeded. Please try again later.'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  // Configure for proxy environment (Render)
+  validate: {trustProxy: false}
 })
 app.use('/api/', limiter)
 
@@ -104,7 +106,9 @@ const factLimiter = rateLimit({
     error: 'Too many fact generation requests, please try again later.'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  // Configure for proxy environment (Render)
+  validate: {trustProxy: false}
 })
 app.use('/api/facts/generate', factLimiter)
 
@@ -218,6 +222,7 @@ const startServer = async () => {
       logger.info(`🚀 FactVerse AI Server running on port ${PORT}`)
       logger.info(`📊 Environment: ${process.env.NODE_ENV || 'development'}`)
       logger.info(`🌐 Client URL: ${process.env.CLIENT_URL || 'http://localhost:3000'}`)
+      logger.info(`⏰ Deployment: v1.0.2 - Aug 11, 2025`)
     })
   } catch (error) {
     logger.error('Failed to start server:', error)
