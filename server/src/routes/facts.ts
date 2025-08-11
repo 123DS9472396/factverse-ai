@@ -81,6 +81,26 @@ router.get('/category/:category', async (req, res) => {
   }
 })
 
+// Get fact statistics (must be before /:id route)
+router.get('/stats', async (req, res) => {
+  try {
+    const stats = await FactModel.getStats()
+    
+    res.status(200).json({
+      totalFacts: stats.total || 0,
+      generatedToday: stats.today || 0,
+      categoryCounts: stats.categories || {},
+      topCategories: Object.keys(stats.categories || {}).slice(0, 5)
+    })
+  } catch (error) {
+    logger.error('Stats error:', error)
+    res.status(500).json({
+      error: 'Failed to get statistics',
+      message: error.message
+    })
+  }
+})
+
 // Get fact by ID
 router.get('/:id', async (req, res) => {
   try {
@@ -119,6 +139,64 @@ router.post('/:id/like', async (req, res) => {
     logger.error('Like fact error:', error)
     res.status(500).json({
       error: 'Failed to like fact',
+      message: error.message
+    })
+  }
+})
+
+// Generate multiple facts in batch
+router.post('/generate/batch', async (req, res) => {
+  try {
+    const { 
+      category = 'general', 
+      complexity = 'medium', 
+      count = 25,
+      provider = 'huggingface'
+    } = req.body
+
+    logger.info(`Generating batch of ${count} facts - Category: ${category}, Complexity: ${complexity}`)
+
+    const facts = []
+    const errors = []
+
+    // Generate facts one by one
+    for (let i = 0; i < Math.min(count, 50); i++) { // Limit to 50 facts max
+      try {
+        const fact = await aiService.generateFact(category, complexity)
+        
+        // Save to database if it's not a fallback fact
+        if (fact.metadata?.aiGenerated !== false) {
+          try {
+            const savedFact = await FactModel.create(fact)
+            fact.id = savedFact.id
+          } catch (dbError) {
+            logger.error(`Database save failed for fact ${i}:`, dbError)
+            // Continue with response even if DB save fails
+          }
+        }
+        
+        facts.push(fact)
+      } catch (error) {
+        logger.error(`Failed to generate fact ${i}:`, error)
+        errors.push(`Fact ${i}: ${error.message}`)
+      }
+    }
+
+    res.status(200).json({
+      facts,
+      metadata: {
+        requested: count,
+        generated: facts.length,
+        errors: errors.length > 0 ? errors : undefined,
+        category,
+        complexity,
+        provider
+      }
+    })
+  } catch (error) {
+    logger.error('Batch generation error:', error)
+    res.status(500).json({
+      error: 'Failed to generate batch facts',
       message: error.message
     })
   }

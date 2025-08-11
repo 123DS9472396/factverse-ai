@@ -90,7 +90,9 @@ const limiter = rateLimit({
   max: 1000, // Much higher limit for development
   message: {
     error: 'API limit exceeded. Please try again later.'
-  }
+  },
+  standardHeaders: true,
+  legacyHeaders: false
 })
 app.use('/api/', limiter)
 
@@ -100,7 +102,9 @@ const factLimiter = rateLimit({
   max: 50, // Allow 50 generations per minute
   message: {
     error: 'Too many fact generation requests, please try again later.'
-  }
+  },
+  standardHeaders: true,
+  legacyHeaders: false
 })
 app.use('/api/facts/generate', factLimiter)
 

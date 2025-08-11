@@ -234,6 +234,62 @@ export class FactModel {
 
     return data || []
   }
+
+  // Get fact statistics
+  static async getStats(): Promise<{
+    total: number
+    today: number
+    categories: Record<string, number>
+  }> {
+    try {
+      // Get total count
+      const { count: total, error: totalError } = await supabase
+        .from('facts')
+        .select('*', { count: 'exact', head: true })
+
+      if (totalError) {
+        logger.error('Error getting total count:', totalError)
+      }
+
+      // Get today's count
+      const today = new Date().toISOString().split('T')[0]
+      const { count: todayCount, error: todayError } = await supabase
+        .from('facts')
+        .select('*', { count: 'exact', head: true })
+        .gte('created_at', `${today}T00:00:00.000Z`)
+        .lt('created_at', `${today}T23:59:59.999Z`)
+
+      if (todayError) {
+        logger.error('Error getting today count:', todayError)
+      }
+
+      // Get category counts
+      const { data: categoryData, error: categoryError } = await supabase
+        .from('facts')
+        .select('category')
+
+      let categories: Record<string, number> = {}
+      if (!categoryError && categoryData) {
+        categories = categoryData.reduce((acc, fact) => {
+          acc[fact.category] = (acc[fact.category] || 0) + 1
+          return acc
+        }, {} as Record<string, number>)
+      }
+
+      return {
+        total: total || 0,
+        today: todayCount || 0,
+        categories
+      }
+    } catch (error) {
+      logger.error('Error getting stats:', error)
+      return {
+        total: 0,
+        today: 0,
+        categories: {}
+      }
+    }
+  }
 }
 
 export default FactModel
