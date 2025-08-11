@@ -42,39 +42,39 @@ app.use(helmet({
   },
 }))
 
-// CORS configuration
-const allowedOrigins = [
-  process.env.CLIENT_URL || "http://localhost:3000",
-  "https://factverse-ai.vercel.app",
-  /^https:\/\/factverse-ai.*\.vercel\.app$/,
-  /^https:\/\/.*-dipeshs-projects-055d8d01\.vercel\.app$/,
-  /^http:\/\/localhost:\d+$/
-]
-
+// CORS configuration - Allow all Vercel deployments and localhost
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true)
     
-    // Check if the origin matches any of our allowed patterns
-    const isAllowed = allowedOrigins.some(allowedOrigin => {
-      if (typeof allowedOrigin === 'string') {
-        return origin === allowedOrigin
-      } else if (allowedOrigin instanceof RegExp) {
-        return allowedOrigin.test(origin)
-      }
-      return false
-    })
-    
-    if (isAllowed) {
+    // Always allow localhost for development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
       return callback(null, true)
     }
     
-    // For development, be more permissive
+    // Allow all vercel.app deployments for this project
+    if (origin.includes('vercel.app') && origin.includes('factverse')) {
+      return callback(null, true)
+    }
+    
+    // Allow the main custom domain
+    if (origin === 'https://factverse-ai.vercel.app') {
+      return callback(null, true)
+    }
+    
+    // Allow CLIENT_URL from environment
+    if (origin === process.env.CLIENT_URL) {
+      return callback(null, true)
+    }
+    
+    // For development, allow everything
     if (process.env.NODE_ENV !== 'production') {
       return callback(null, true)
     }
     
+    // If we're in production and none of the above matched, reject
+    console.log('CORS blocked origin:', origin)
     callback(new Error('Not allowed by CORS'))
   },
   credentials: true
