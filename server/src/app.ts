@@ -43,8 +43,40 @@ app.use(helmet({
 }))
 
 // CORS configuration
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:3000",
+  "https://factverse-ai.vercel.app",
+  /^https:\/\/factverse-ai.*\.vercel\.app$/,
+  /^https:\/\/.*-dipeshs-projects-055d8d01\.vercel\.app$/,
+  /^http:\/\/localhost:\d+$/
+]
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true)
+    
+    // Check if the origin matches any of our allowed patterns
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return origin === allowedOrigin
+      } else if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin)
+      }
+      return false
+    })
+    
+    if (isAllowed) {
+      return callback(null, true)
+    }
+    
+    // For development, be more permissive
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true)
+    }
+    
+    callback(new Error('Not allowed by CORS'))
+  },
   credentials: true
 }))
 
