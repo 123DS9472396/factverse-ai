@@ -32,6 +32,28 @@ A modern fact discovery platform featuring glassmorphism design, intelligent con
 ### Prerequisites
 - Node.js 16+ 
 - Git
+- Supabase account (for database)
+
+### Environment Setup:
+1. **Copy environment files:**
+   ```bash
+   cp server/.env.example server/.env
+   ```
+
+2. **Update server/.env with your credentials:**
+   ```env
+   # Database (Supabase PostgreSQL)
+   SUPABASE_URL=your_supabase_project_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
+   
+   # AI API Keys (Optional)
+   HUGGING_FACE_API_KEY=your_key
+   GEMINI_API_KEY=your_key
+   
+   # Security
+   JWT_SECRET=your_jwt_secret
+   CLIENT_URL=http://localhost:3000
+   ```
 
 ### Start the Server:
 ```bash
@@ -54,23 +76,83 @@ The application will be available at:
 
 ## 🌐 Live Demo
 
-🔗 **[Visit FactVerse Live](https://factverse-ai.vercel.app)** *(Will be updated after deployment)*
+🔗 **[Visit FactVerse Live](https://factverse-ai.vercel.app)**
+
+**Live URLs:**
+- **Frontend**: [https://factverse-ai.vercel.app](https://factverse-ai.vercel.app)
+- **Backend API**: [https://factverse-ai.onrender.com](https://factverse-ai.onrender.com)
+- **Database**: Supabase PostgreSQL (Cloud)
 
 ## 🚀 Quick Deployment
 
-### For GitHub & Deployment:
-1. Run `.\SETUP-COMPLETE.bat` to initialize Git (PowerShell)
-2. Create repository at https://github.com/123DS9472396
-3. Follow instructions in `DEPLOYMENT.md`
-4. Deploy Frontend to Vercel 
-5. Deploy Backend to Cyclic 
+### Complete Deployment Guide
+
+1. **Repository Setup**: Code is already on GitHub at [github.com/123DS9472396/factverse-ai](https://github.com/123DS9472396/factverse-ai)
+2. **Database Setup**: Create Supabase project and run the provided SQL scripts
+3. **Follow instructions in `DEPLOYMENT.md`** for step-by-step deployment
+4. **Deploy Frontend to Vercel** - Free hosting with automatic deployments
+5. **Deploy Backend to Render** - Free tier with 750 hours/month
+6. **Update environment variables** with production URLs and API keys
+
+### Deployment Platforms
+- **Frontend**: Vercel (Free forever)
+- **Backend**: Render (Free 750hrs/month)
+- **Database**: Supabase PostgreSQL (Free 500MB)
+- **Total Cost**: $0/month for development and testing 
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion
-- **Backend**: Node.js, Express, TypeScript, MongoDB
-- **UI Components**: shadcn/ui
-- **Deployment**: Vercel (Frontend) + Cyclic (Backend) - 100% Free
+### Frontend
+- **React 18** - Modern React with hooks and concurrent features
+- **TypeScript** - Type-safe development experience
+- **Vite** - Lightning fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Smooth animations and transitions
+- **shadcn/ui** - Beautiful, accessible UI components
+
+### Backend
+- **Node.js** - JavaScript runtime environment
+- **Express** - Fast, minimalist web framework
+- **TypeScript** - Full-stack type safety
+- **Supabase** - PostgreSQL database with real-time features
+- **JWT** - Secure authentication and authorization
+
+### AI & APIs
+- **Hugging Face** - AI model inference
+- **Google Gemini** - Advanced language models
+- **OpenAI** - GPT integration for content generation
+
+### Deployment & DevOps
+- **Vercel** - Frontend hosting and deployment
+- **Render** - Backend hosting and API deployment
+- **Supabase** - Database hosting and management
+- **GitHub** - Version control and CI/CD
+
+## 🗄️ Database Setup
+
+### Supabase PostgreSQL Database
+
+The application uses **Supabase** as the database provider, offering a modern PostgreSQL database with real-time features, built-in authentication, and edge functions.
+
+### Database Schema
+- **facts** - Main table storing all generated facts
+- **categories** - Fact categories with metadata
+- **users** - User accounts and profiles (future feature)
+- **user_saved_facts** - User's saved/bookmarked facts
+- **user_fact_likes** - Tracking fact likes and engagement
+
+### Quick Database Setup
+1. **Create Supabase Project**: Visit [supabase.com](https://supabase.com)
+2. **Run SQL Scripts**: Use the provided `supabase_complete_setup.sql`
+3. **Get Credentials**: Copy your project URL and anon key
+4. **Update Environment**: Add credentials to your `.env` file
+
+### Database Features
+- **Row Level Security (RLS)** - Fine-grained access control
+- **Real-time subscriptions** - Live updates
+- **Full-text search** - Advanced search capabilities
+- **JSONB support** - Flexible metadata storage
+- **Automated backups** - Data protection
 
 ## 👨‍💻 Developer
 
