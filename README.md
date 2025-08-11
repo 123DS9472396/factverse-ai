@@ -76,7 +76,7 @@ The application will be available at:
 
 ## 🌐 Live Demo
 
-🔗 **[Visit FactVerse Live](https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app/)**
+🔗 **[Visit FactVerse Live](https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app)**
 
 **Live URLs:**
 - **Frontend**: [https://factverse-ai.vercel.app](https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app/)
