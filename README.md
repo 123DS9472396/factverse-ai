@@ -79,7 +79,7 @@ The application will be available at:
 🔗 **[Visit FactVerse Live](https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app/)**
 
 **Live URLs:**
-- **Frontend**: [https://factverse-ai.vercel.app]((https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app/))
+- **Frontend**: [https://factverse-ai.vercel.app](https://factverse-ai-git-main-dipeshs-projects-055d8d01.vercel.app/)
 - **Backend API**: [https://factverse-ai.onrender.com](https://factverse-ai.onrender.com)
 - **Database**: Supabase PostgreSQL (Cloud)
 
