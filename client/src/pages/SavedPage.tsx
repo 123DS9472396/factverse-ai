@@ -198,6 +198,8 @@ export default function SavedPage() {
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="glass rounded-lg px-3 py-2 border-0 focus:ring-2 focus:ring-primary/50"
+                title="Filter by category"
+                aria-label="Filter facts by category"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -211,6 +213,8 @@ export default function SavedPage() {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="glass rounded-lg px-3 py-2 border-0 focus:ring-2 focus:ring-primary/50"
+              title="Sort saved facts"
+              aria-label="Sort saved facts by different criteria"
             >
               <option value="recent">Most Recent</option>
               <option value="oldest">Oldest First</option>
@@ -255,10 +259,18 @@ export default function SavedPage() {
                 {/* Saved overlay */}
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="flex space-x-2">
-                    <button className="p-2 glass rounded-lg hover:bg-primary/10 transition-all">
+                    <button 
+                      className="p-2 glass rounded-lg hover:bg-primary/10 transition-all"
+                      title="Share this fact"
+                      aria-label="Share this fact"
+                    >
                       <Share2 className="w-4 h-4" />
                     </button>
-                    <button className="p-2 glass rounded-lg hover:bg-red-500/10 text-red-500 transition-all">
+                    <button 
+                      className="p-2 glass rounded-lg hover:bg-red-500/10 text-red-500 transition-all"
+                      title="Remove from saved facts"
+                      aria-label="Remove from saved facts"
+                    >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
