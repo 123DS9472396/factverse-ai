@@ -64,13 +64,13 @@ export default function Sidebar({ isOpen, onClose, activeRoute = '/' }: SidebarP
 
               {/* Navigation */}
               <nav className="flex-1 p-6">
-                <ul className="space-y-2">
+                <div className="space-y-2">
                   {menuItems.map((item, index) => {
                     const Icon = item.icon;
                     const isActive = activeRoute === item.path;
                     
                     return (
-                      <motion.li
+                      <motion.div
                         key={item.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -116,10 +116,10 @@ export default function Sidebar({ isOpen, onClose, activeRoute = '/' }: SidebarP
                             />
                           )}
                         </motion.a>
-                      </motion.li>
+                      </motion.div>
                     );
                   })}
-                </ul>
+                </div>
               </nav>
 
               {/* Footer */}

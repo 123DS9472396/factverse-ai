@@ -96,6 +96,40 @@ export interface AIAnalysis {
   readabilityScore: number
 }
 
+export interface BatchMetadata {
+  totalGenerated: number
+  processingTime: number
+  provider: string
+  category: string
+  complexity: string
+}
+
+export interface SearchFilters {
+  category?: string
+  difficulty?: string
+  verified?: boolean
+  dateRange?: {
+    start: Date
+    end: Date
+  }
+}
+
+export interface UserActivity {
+  id: string
+  type: 'view' | 'like' | 'save' | 'share'
+  factId: string
+  timestamp: Date
+  metadata?: Record<string, unknown>
+}
+
+export interface AnalyticsData {
+  totalViews: number
+  uniqueUsers: number
+  topCategories: Array<{ category: string; count: number }>
+  engagementRate: number
+  timeRange: string
+}
+
 // API Functions
 export const factAPI = {
   // Get random fact
@@ -117,7 +151,7 @@ export const factAPI = {
     category: string = 'general', 
     complexity: string = 'medium', 
     count: number = 25
-  ): Promise<{ facts: Fact[], metadata: any }> => {
+  ): Promise<{ facts: Fact[], metadata: BatchMetadata }> => {
     const response = await apiClient.post('/facts/generate/batch', {
       category,
       complexity,
@@ -147,7 +181,7 @@ export const factAPI = {
   },
 
   // Search facts
-  searchFacts: async (query: string, filters?: any): Promise<Fact[]> => {
+  searchFacts: async (query: string, filters?: SearchFilters): Promise<Fact[]> => {
     const response = await apiClient.get('/facts/search', {
       params: { q: query, ...filters }
     })
@@ -200,7 +234,7 @@ export const userAPI = {
   },
 
   // Get user activity
-  getActivity: async (limit = 20): Promise<any[]> => {
+  getActivity: async (limit = 20): Promise<UserActivity[]> => {
     const response = await apiClient.get('/users/activity', {
       params: { limit }
     })
@@ -222,7 +256,7 @@ export const aiAPI = {
   },
 
   // Get insights
-  getInsights: async (): Promise<any> => {
+  getInsights: async (): Promise<AnalyticsData> => {
     const response = await apiClient.get('/ai/insights')
     return response.data
   }
@@ -230,12 +264,12 @@ export const aiAPI = {
 
 export const analyticsAPI = {
   // Track event
-  trackEvent: async (event: string, properties?: any): Promise<void> => {
+  trackEvent: async (event: string, properties?: Record<string, unknown>): Promise<void> => {
     await apiClient.post('/analytics/track', { event, properties })
   },
 
   // Get analytics data
-  getAnalytics: async (timeRange = '7d'): Promise<any> => {
+  getAnalytics: async (timeRange = '7d'): Promise<AnalyticsData> => {
     const response = await apiClient.get('/analytics', {
       params: { timeRange }
     })

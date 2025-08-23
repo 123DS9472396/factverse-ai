@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, Zap, Brain, Rocket } from 'lucide-react'
 import FactGenerator from '../components/facts/FactGenerator'

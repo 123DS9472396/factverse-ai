@@ -5,6 +5,17 @@ import { FactsLoading } from '../components/ui/loading';
 import { factAPI } from '../utils/api';
 import { useQuery } from '@tanstack/react-query';
 
+interface TrendingFact {
+  id: string;
+  text: string;
+  category: string;
+  source?: string;
+  verification_status?: string;
+  views: number;
+  trending_score: number;
+  time_trending: number;
+}
+
 export default function TrendingPage() {
   const { data: response, isLoading } = useQuery({
     queryKey: ['facts', 'trending'],
@@ -15,12 +26,12 @@ export default function TrendingPage() {
   const facts = Array.isArray(response) ? response : response?.facts || [];
 
   // Simulate trending metrics for demonstration
-  const trendingFacts = facts.map((fact: any, index: number) => ({
+  const trendingFacts: TrendingFact[] = facts.map((fact) => ({
     ...fact,
     views: Math.floor(Math.random() * 5000) + 1000,
     trending_score: Math.floor(Math.random() * 100) + 50,
     time_trending: Math.floor(Math.random() * 24) + 1
-  })).sort((a: any, b: any) => b.trending_score - a.trending_score);
+  })).sort((a: TrendingFact, b: TrendingFact) => b.trending_score - a.trending_score);
 
   const stats = [
     {
@@ -38,7 +49,7 @@ export default function TrendingPage() {
     {
       icon: Eye,
       label: 'Total Views',
-      value: trendingFacts.reduce((sum: number, fact: any) => sum + fact.views, 0).toLocaleString(),
+      value: trendingFacts.reduce((sum: number, fact: TrendingFact) => sum + fact.views, 0).toLocaleString(),
       color: 'text-blue-500'
     },
     {
@@ -133,7 +144,7 @@ export default function TrendingPage() {
           >
             <h2 className="text-2xl font-bold mb-6 glow-text-subtle">📈 Trending Now</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {trendingFacts.map((fact: any, index: number) => (
+              {trendingFacts.map((fact: TrendingFact, index: number) => (
                 <motion.div
                   key={fact.id}
                   initial={{ opacity: 0, y: 50 }}

@@ -478,4 +478,12 @@
                 radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 90% 90%, rgba(0, 255, 148, 0.1) 0%, transparent 50%);
   }
+
+  /* Grid pattern for animated background */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
 }

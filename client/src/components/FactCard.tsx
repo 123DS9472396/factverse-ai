@@ -24,7 +24,7 @@ interface FactCardProps {
   className?: string;
 }
 
-export default function FactCard({ fact, index = 0, showActions = true, className = '' }: FactCardProps) {
+export default function FactCard({ fact, index = 0 }: FactCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isShared, setIsShared] = useState(false);
@@ -63,7 +63,7 @@ export default function FactCard({ fact, index = 0, showActions = true, classNam
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${fact.text} - Discovered on FactVerse by Dipesh Sharma`);
+      navigator.clipboard.writeText(`${fact.text} - Discovered on FactVerse`);
       setIsShared(true);
       setTimeout(() => setIsShared(false), 2000);
     }
