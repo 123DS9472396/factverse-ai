@@ -3,9 +3,27 @@ import { motion } from 'framer-motion';
 import { Search, Menu, Moon, Sun, User, Settings, Github, Linkedin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-export default function Header() {
+interface HeaderProps {
+  onSearch?: (query: string) => void;
+  onOpenSettings?: () => void;
+  onOpenProfile?: () => void;
+}
+
+export default function Header({ onSearch, onOpenSettings, onOpenProfile }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { isDark, toggleTheme, theme } = useTheme();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSearch && searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <motion.header
@@ -27,20 +45,21 @@ export default function Header() {
             </div>
             <div className="flex flex-col">
               <h1 className="text-2xl font-bold glow-text">FactVerse</h1>
-              <span className="text-xs text-muted-foreground -mt-1">by Dipesh Sharma</span>
             </div>
           </motion.div>
 
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
               <input
                 type="text"
-                placeholder="Discover amazing facts..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search facts..."
                 className="w-full pl-10 pr-4 py-2 glass rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 theme-transition"
               />
-            </div>
+            </form>
           </div>
 
           {/* Navigation */}
@@ -88,6 +107,7 @@ export default function Header() {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={() => onOpenSettings?.()}
               className="p-2 rounded-lg glass hover:glow-button transition-all duration-200"
               title="Settings"
             >
@@ -97,6 +117,7 @@ export default function Header() {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={() => onOpenProfile?.()}
               className="p-2 rounded-lg glass hover:glow-button transition-all duration-200"
               title="User Profile"
             >
@@ -163,10 +184,18 @@ export default function Header() {
                     <Moon className="w-5 h-5 text-blue-400" />
                   )}
                 </button>
-                <button className="p-2 rounded-lg glass" title="Settings">
+                <button 
+                  className="p-2 rounded-lg glass" 
+                  title="Settings"
+                  onClick={onOpenSettings}
+                >
                   <Settings className="w-5 h-5 text-foreground" />
                 </button>
-                <button className="p-2 rounded-lg glass" title="User Profile">
+                <button 
+                  className="p-2 rounded-lg glass" 
+                  title="User Profile"
+                  onClick={onOpenProfile}
+                >
                   <User className="w-5 h-5 text-foreground" />
                 </button>
               </div>
