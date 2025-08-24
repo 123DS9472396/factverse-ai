@@ -45,7 +45,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 min-h-screen">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -58,13 +58,13 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative w-full max-w-md glass rounded-2xl p-6"
+                className="relative w-full max-w-md bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 my-auto mx-4 sm:mx-auto shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
       >
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold glow-text mb-2">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold glow-text mb-3">
             {isLogin ? 'Welcome Back' : 'Join FactVerse'}
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-lg">
             {isLogin ? 'Sign in to your account' : 'Create your account'}
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required={!isLogin}
-                className="w-full pl-10 pr-4 py-3 glass rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full pl-10 pr-4 py-3 bg-black/40 border border-white/10 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 backdrop-blur-lg shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
               />
             </div>
           )}
@@ -130,7 +130,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             disabled={loading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg transition-all duration-200"
+            className="w-full py-3 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 bg-gradient-to-r from-blue-600/90 to-purple-600/90 hover:from-blue-600 hover:to-purple-600 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 hover:scale-[1.02]"
           >
             {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Sign Up')}
           </motion.button>

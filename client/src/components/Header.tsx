@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Menu, Moon, Sun, User, Settings, Github, Linkedin, LogIn } from 'lucide-react';
+import { Search, Menu, Moon, Sun, User, Settings, Github, Linkedin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import AuthModal from './AuthModal';
@@ -190,9 +190,9 @@ export default function Header({ onSearch, onOpenSettings }: HeaderProps) {
                   )}
                 </button>
                 <button 
-                  className="p-2 rounded-lg glass" 
+                  className="p-2 rounded-lg glass hover:glow-button" 
                   title="Settings"
-                  onClick={onOpenSettings}
+                  onClick={() => onOpenSettings?.()}
                 >
                   <Settings className="w-5 h-5 text-foreground" />
                 </button>

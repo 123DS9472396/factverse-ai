@@ -1,14 +1,35 @@
 import { motion } from 'framer-motion';
 import { Microscope, Clock, Cpu, Leaf, Rocket, Globe, Sparkles } from 'lucide-react';
 
+import { FACT_CATEGORIES } from '../utils/constants';
+
 const categories = [
   { id: 'all', name: 'All Facts', icon: Sparkles, color: 'from-purple-500 to-pink-500' },
-  { id: 'science', name: 'Science', icon: Microscope, color: 'from-blue-500 to-cyan-500' },
-  { id: 'history', name: 'History', icon: Clock, color: 'from-amber-500 to-orange-500' },
-  { id: 'technology', name: 'Technology', icon: Cpu, color: 'from-purple-500 to-violet-500' },
-  { id: 'nature', name: 'Nature', icon: Leaf, color: 'from-green-500 to-emerald-500' },
-  { id: 'space', name: 'Space', icon: Rocket, color: 'from-indigo-500 to-blue-500' },
-  { id: 'general', name: 'General', icon: Globe, color: 'from-gray-500 to-slate-500' },
+  ...FACT_CATEGORIES.map(cat => ({
+    id: cat.id,
+    name: cat.name,
+    icon: cat.icon === '🔬' ? Microscope :
+         cat.icon === '📚' ? Clock :
+         cat.icon === '🌿' ? Leaf :
+         cat.icon === '🚀' ? Rocket :
+         cat.icon === '💻' ? Cpu :
+         cat.icon === '🦁' ? Leaf :
+         cat.icon === '🌍' ? Globe :
+         cat.icon === '🎭' ? Globe :
+         cat.icon === '📐' ? Globe :
+         cat.icon === '🍕' ? Globe : Globe,
+    color: cat.color.replace('#', '').match(/^00/) ? 'from-blue-500 to-cyan-500' :
+           cat.color.replace('#', '').match(/^8B/) ? 'from-amber-500 to-orange-500' :
+           cat.color.replace('#', '').match(/^00F/) ? 'from-green-500 to-emerald-500' :
+           cat.color.replace('#', '').match(/^EC/) ? 'from-purple-500 to-violet-500' :
+           cat.color.replace('#', '').match(/^F5/) ? 'from-indigo-500 to-blue-500' :
+           cat.color.replace('#', '').match(/^10/) ? 'from-green-500 to-emerald-500' :
+           cat.color.replace('#', '').match(/^3B/) ? 'from-blue-500 to-cyan-500' :
+           cat.color.replace('#', '').match(/^EF/) ? 'from-rose-500 to-red-500' :
+           cat.color.replace('#', '').match(/^63/) ? 'from-purple-500 to-violet-500' :
+           cat.color.replace('#', '').match(/^F9/) ? 'from-amber-500 to-orange-500' :
+           'from-gray-500 to-slate-500'
+  }))
 ];
 
 interface CategorySelectorProps {

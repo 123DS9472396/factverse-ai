@@ -1,7 +1,9 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
+import axiosRetry from 'axios-retry'
 import { API_CONFIG, ERROR_MESSAGES } from './constants'
 import { supabase } from '../config/supabase'
+import { getOfflineFact } from './offline-facts'
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
@@ -10,6 +12,16 @@ const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+})
+
+// Configure axios retry
+axiosRetry(apiClient, {
+  retries: 3,
+  retryDelay: (retryCount) => retryCount * 1000,
+  retryCondition: (error) => {
+    return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+           error.code === 'ECONNABORTED'
+  }
 })
 
 // Request interceptor
@@ -48,6 +60,12 @@ apiClient.interceptors.response.use(
 )
 
 // API Types
+export interface FactMetadata {
+  confidence: number
+  readingTime: number
+  complexity: 'easy' | 'medium' | 'hard'
+}
+
 export interface Fact {
   id: string
   text: string
@@ -56,10 +74,41 @@ export interface Fact {
   verified: boolean
   likes: number
   createdAt: string
-  metadata?: {
-    confidence: number
-    readingTime: number
-    complexity: 'easy' | 'medium' | 'hard'
+  metadata?: FactMetadata
+}
+
+export interface UserActivity {
+  type: 'view' | 'save' | 'like' | 'report'
+  factId: string
+  timestamp: string
+  metadata?: Record<string, unknown>
+}
+
+export interface AnalyticsProperties {
+  userId?: string
+  source?: string
+  category?: string
+  value?: number
+  metadata?: Record<string, unknown>
+}
+
+export interface AnalyticsData {
+  totalUsers: number
+  activeUsers: number
+  factViews: number
+  topCategories: Array<{ category: string; count: number }>
+  userRetention: number
+  timeRange: string
+}
+
+export interface AIInsights {
+  popularTopics: string[]
+  trendingCategories: Array<{ category: string; growth: number }>
+  userPreferences: Record<string, number>
+  contentQuality: {
+    accuracy: number
+    engagement: number
+    diversity: number
   }
 }
 
@@ -117,7 +166,7 @@ export const factAPI = {
     category: string = 'general', 
     complexity: string = 'medium', 
     count: number = 25
-  ): Promise<{ facts: Fact[], metadata: any }> => {
+  ): Promise<{ facts: Fact[], metadata: FactMetadata }> => {
     const response = await apiClient.post('/facts/generate/batch', {
       category,
       complexity,
@@ -147,7 +196,7 @@ export const factAPI = {
   },
 
   // Search facts
-  searchFacts: async (query: string, filters?: any): Promise<Fact[]> => {
+  searchFacts: async (query: string, filters?: Record<string, string | number>): Promise<Fact[]> => {
     const response = await apiClient.get('/facts/search', {
       params: { q: query, ...filters }
     })
@@ -200,7 +249,7 @@ export const userAPI = {
   },
 
   // Get user activity
-  getActivity: async (limit = 20): Promise<any[]> => {
+  getActivity: async (limit = 20): Promise<UserActivity[]> => {
     const response = await apiClient.get('/users/activity', {
       params: { limit }
     })
@@ -222,7 +271,7 @@ export const aiAPI = {
   },
 
   // Get insights
-  getInsights: async (): Promise<any> => {
+  getInsights: async (): Promise<AIInsights> => {
     const response = await apiClient.get('/ai/insights')
     return response.data
   }
@@ -230,12 +279,12 @@ export const aiAPI = {
 
 export const analyticsAPI = {
   // Track event
-  trackEvent: async (event: string, properties?: any): Promise<void> => {
+  trackEvent: async (event: string, properties?: AnalyticsProperties): Promise<void> => {
     await apiClient.post('/analytics/track', { event, properties })
   },
 
   // Get analytics data
-  getAnalytics: async (timeRange = '7d'): Promise<any> => {
+  getAnalytics: async (timeRange = '7d'): Promise<AnalyticsData> => {
     const response = await apiClient.get('/analytics', {
       params: { timeRange }
     })

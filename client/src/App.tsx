@@ -55,6 +55,13 @@ function AppContent() {
           >
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/trending" element={<HomePage />} />
+              <Route path="/bookmarks" element={<HomePage />} />
+              <Route path="/history" element={<HomePage />} />
+              <Route path="/settings" element={<HomePage />} />
+              <Route path="/help" element={<HomePage />} />
+              <Route path="*" element={<HomePage />} />
             </Routes>
           </motion.div>
         </main>
