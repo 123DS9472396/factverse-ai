@@ -25,17 +25,49 @@ const FactGenerator: React.FC<FactGeneratorProps> = ({
     setLoading(true)
     
     try {
-      const fact = await factAPI.generateFact({
-        category: selectedCategory === 'all' ? '' : selectedCategory,
-        difficulty,
-        count: 1
-      })
+      // Try to get a random fact first (faster)
+      let fact
+      if (selectedCategory === 'all' || selectedCategory === '') {
+        fact = await factAPI.getRandomFact()
+      } else {
+        fact = await factAPI.getRandomFact(selectedCategory)
+      }
+      
+      // If no cached fact available, generate new one
+      if (!fact) {
+        fact = await factAPI.generateFact({
+          category: selectedCategory === 'all' ? '' : selectedCategory,
+          difficulty,
+          count: 1
+        })
+      }
       
       setCurrentFact(fact)
       addToHistory(fact)
       toast.success('New fact discovered! ✨')
     } catch (error) {
-      toast.error('Failed to generate fact. Please try again.')
+      // Fallback to offline facts if API fails
+      const offlineFacts = [
+        {
+          id: 'offline-1',
+          text: 'The human brain contains approximately 86 billion neurons, each capable of forming thousands of connections.',
+          category: 'science',
+          verified: true,
+          likes: 142,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'offline-2', 
+          text: 'Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.',
+          category: 'food',
+          verified: true,
+          likes: 98,
+          createdAt: new Date().toISOString()
+        }
+      ]
+      const randomFact = offlineFacts[Math.floor(Math.random() * offlineFacts.length)]
+      setCurrentFact(randomFact)
+      toast.error('Using offline facts. Check your connection.')
       console.error('Error generating fact:', error)
     } finally {
       setIsGenerating(false)

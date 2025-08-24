@@ -1,6 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
 import { API_CONFIG, ERROR_MESSAGES } from './constants'
+import { supabase } from '../config/supabase'
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
@@ -13,11 +14,11 @@ const apiClient: AxiosInstance = axios.create({
 
 // Request interceptor
 apiClient.interceptors.request.use(
-  (config) => {
-    // Add auth token if available
-    const token = localStorage.getItem('auth_token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+  async (config) => {
+    // Add Supabase auth token if available
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session?.access_token) {
+      config.headers.Authorization = `Bearer ${session.access_token}`
     }
     return config
   },
@@ -33,9 +34,8 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
-      localStorage.removeItem('auth_token')
-      window.location.href = '/login'
+      // Handle unauthorized access - sign out from Supabase
+      supabase.auth.signOut()
     } else if (error.response?.status === 429) {
       // Handle rate limiting
       throw new Error(ERROR_MESSAGES.API_LIMIT_EXCEEDED)
@@ -96,40 +96,6 @@ export interface AIAnalysis {
   readabilityScore: number
 }
 
-export interface BatchMetadata {
-  totalGenerated: number
-  processingTime: number
-  provider: string
-  category: string
-  complexity: string
-}
-
-export interface SearchFilters {
-  category?: string
-  difficulty?: string
-  verified?: boolean
-  dateRange?: {
-    start: Date
-    end: Date
-  }
-}
-
-export interface UserActivity {
-  id: string
-  type: 'view' | 'like' | 'save' | 'share'
-  factId: string
-  timestamp: Date
-  metadata?: Record<string, unknown>
-}
-
-export interface AnalyticsData {
-  totalViews: number
-  uniqueUsers: number
-  topCategories: Array<{ category: string; count: number }>
-  engagementRate: number
-  timeRange: string
-}
-
 // API Functions
 export const factAPI = {
   // Get random fact
@@ -151,7 +117,7 @@ export const factAPI = {
     category: string = 'general', 
     complexity: string = 'medium', 
     count: number = 25
-  ): Promise<{ facts: Fact[], metadata: BatchMetadata }> => {
+  ): Promise<{ facts: Fact[], metadata: any }> => {
     const response = await apiClient.post('/facts/generate/batch', {
       category,
       complexity,
@@ -181,7 +147,7 @@ export const factAPI = {
   },
 
   // Search facts
-  searchFacts: async (query: string, filters?: SearchFilters): Promise<Fact[]> => {
+  searchFacts: async (query: string, filters?: any): Promise<Fact[]> => {
     const response = await apiClient.get('/facts/search', {
       params: { q: query, ...filters }
     })
@@ -234,7 +200,7 @@ export const userAPI = {
   },
 
   // Get user activity
-  getActivity: async (limit = 20): Promise<UserActivity[]> => {
+  getActivity: async (limit = 20): Promise<any[]> => {
     const response = await apiClient.get('/users/activity', {
       params: { limit }
     })
@@ -256,7 +222,7 @@ export const aiAPI = {
   },
 
   // Get insights
-  getInsights: async (): Promise<AnalyticsData> => {
+  getInsights: async (): Promise<any> => {
     const response = await apiClient.get('/ai/insights')
     return response.data
   }
@@ -264,12 +230,12 @@ export const aiAPI = {
 
 export const analyticsAPI = {
   // Track event
-  trackEvent: async (event: string, properties?: Record<string, unknown>): Promise<void> => {
+  trackEvent: async (event: string, properties?: any): Promise<void> => {
     await apiClient.post('/analytics/track', { event, properties })
   },
 
   // Get analytics data
-  getAnalytics: async (timeRange = '7d'): Promise<AnalyticsData> => {
+  getAnalytics: async (timeRange = '7d'): Promise<any> => {
     const response = await apiClient.get('/analytics', {
       params: { timeRange }
     })

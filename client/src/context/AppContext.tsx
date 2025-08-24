@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import type { Fact, User } from '../utils/api'
 import { userAPI, factAPI } from '../utils/api'
 import { STORAGE_KEYS } from '../utils/constants'
@@ -49,7 +49,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     error: null,
   })
 
-  const loadInitialData = useCallback(async () => {
+  // Load initial data
+  useEffect(() => {
+    loadInitialData()
+  }, [])
+
+  const loadInitialData = async () => {
     setLoading(true)
     try {
       // Load from localStorage first for offline capability
@@ -77,20 +82,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         localStorage.setItem(STORAGE_KEYS.SAVED_FACTS, JSON.stringify(savedFacts))
       } catch (error) {
         // User not logged in or network error - continue with local data
-        console.log('User not authenticated or network error:', error)
+        console.log('User not authenticated or network error')
       }
     } catch (error) {
-      console.error('Failed to load initial data:', error)
       setError('Failed to load initial data')
     } finally {
       setLoading(false)
     }
-  }, [])
-
-  // Load initial data
-  useEffect(() => {
-    loadInitialData()
-  }, [loadInitialData])
+  }
 
   const setUser = (user: User | null) => {
     setState(prev => ({ ...prev, user }))
@@ -109,7 +108,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         } : null
       }))
     } catch (error) {
-      console.error('Failed to update preferences:', error)
       throw new Error('Failed to update preferences')
     }
   }
@@ -126,7 +124,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         await factAPI.saveFact(fact.id)
       }
     } catch (error) {
-      console.error('Failed to save fact:', error)
       // Rollback on error
       setState(prev => ({
         ...prev,
@@ -148,7 +145,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         await factAPI.removeSavedFact(factId)
       }
     } catch (error) {
-      console.error('Failed to remove fact:', error)
       // Rollback on error
       loadInitialData()
       throw new Error('Failed to remove fact')

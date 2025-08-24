@@ -5,7 +5,7 @@ const developmentAPIURL = 'http://localhost:5000/api'
 
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_URL || (isDevelopment ? developmentAPIURL : productionAPIURL),
-  TIMEOUT: 10000,
+  TIMEOUT: 5000, // Reduced from 10000 for faster loading
 }
 
 // AI Service URLs

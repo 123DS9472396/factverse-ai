@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 
 // Context Providers
 import { ThemeProvider, useTheme } from './context/ThemeContext'
+import { AuthProvider } from './contexts/AuthContext'
 
 // Pages
 import HomePage from './pages/HomePage'
@@ -104,14 +105,16 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Router
-          future={{
-            v7_startTransition: true,
-            v7_relativeSplatPath: true
-          }}
-        >
-          <AppContent />
-        </Router>
+        <AuthProvider>
+          <Router
+            future={{
+              v7_startTransition: true,
+              v7_relativeSplatPath: true
+            }}
+          >
+            <AppContent />
+          </Router>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   )

@@ -48,8 +48,8 @@ export default function AnimatedBackground() {
       {/* Animated Gradient Overlays */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse-slow [animation-delay:2s]" />
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-gradient-to-tr from-pink-500/20 to-transparent rounded-full blur-3xl animate-pulse-slow [animation-delay:4s]" />
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-gradient-to-tr from-pink-500/20 to-transparent rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '4s' }} />
       </div>
 
       {/* Floating Particles */}
@@ -64,6 +64,8 @@ export default function AnimatedBackground() {
               width: `${particle.size}px`,
               height: `${particle.size}px`,
               opacity: particle.opacity,
+              animation: `twinkle ${3 + Math.random() * 2}s infinite ease-in-out`,
+              animationDelay: `${Math.random() * 3}s`,
             }}
           />
         ))}
@@ -71,7 +73,16 @@ export default function AnimatedBackground() {
 
       {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full bg-grid-pattern" />
+        <div 
+          className="w-full h-full" 
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+          }}
+        />
       </div>
     </div>
   );

@@ -1,18 +1,23 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Menu, Moon, Sun, User, Settings, Github, Linkedin } from 'lucide-react';
+import { Search, Menu, Moon, Sun, User, Settings, Github, Linkedin, LogIn } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
+import AuthModal from './AuthModal';
+import UserProfile from './UserProfile';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
   onOpenSettings?: () => void;
-  onOpenProfile?: () => void;
 }
 
-export default function Header({ onSearch, onOpenSettings, onOpenProfile }: HeaderProps) {
+export default function Header({ onSearch, onOpenSettings }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const { isDark, toggleTheme, theme } = useTheme();
+  const { user } = useAuth();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,9 +122,9 @@ export default function Header({ onSearch, onOpenSettings, onOpenProfile }: Head
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => onOpenProfile?.()}
+              onClick={() => user ? setShowProfileModal(true) : setShowAuthModal(true)}
               className="p-2 rounded-lg glass hover:glow-button transition-all duration-200"
-              title="User Profile"
+              title={user ? "User Profile" : "Sign In"}
             >
               <User className="w-5 h-5 text-foreground" />
             </motion.button>
@@ -193,8 +198,8 @@ export default function Header({ onSearch, onOpenSettings, onOpenProfile }: Head
                 </button>
                 <button 
                   className="p-2 rounded-lg glass" 
-                  title="User Profile"
-                  onClick={onOpenProfile}
+                  title={user ? "User Profile" : "Sign In"}
+                  onClick={() => user ? setShowProfileModal(true) : setShowAuthModal(true)}
                 >
                   <User className="w-5 h-5 text-foreground" />
                 </button>
@@ -203,6 +208,18 @@ export default function Header({ onSearch, onOpenSettings, onOpenProfile }: Head
           </motion.div>
         )}
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+      />
+
+      {/* User Profile Modal */}
+      <UserProfile 
+        isOpen={showProfileModal} 
+        onClose={() => setShowProfileModal(false)} 
+      />
     </motion.header>
   );
 }

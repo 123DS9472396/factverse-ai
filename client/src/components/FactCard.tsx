@@ -24,7 +24,7 @@ interface FactCardProps {
   className?: string;
 }
 
-export default function FactCard({ fact, index = 0 }: FactCardProps) {
+export default function FactCard({ fact, index = 0, showActions = true, className = '' }: FactCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isShared, setIsShared] = useState(false);
